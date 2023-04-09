@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { ShoppingCartIcon } from '@heroicons/react/24/solid'
+import { ProductContext } from '../App'
 
 const Header = () => {
+  const [cart,setCart] = useContext(ProductContext)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   return (
     <div className='px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8'>
       <div className='relative flex items-center justify-between'>
-        <Link
+        <Link state={'home'}
           to='/'
           aria-label='HeroGadget'
           title='HeroGadget'
@@ -29,17 +31,18 @@ const Header = () => {
         </Link>
         <ul className='items-center hidden space-x-8 lg:flex'>
           <li>
-            <NavLink
+            <NavLink state={'home'}
               to='/'
               aria-label='Home'
               title='Home'
               className={({ isActive }) => (isActive ? 'active' : 'default')}
+              
             >
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink
+            <NavLink state={'shop'}
               to='/shop'
               aria-label='Shop'
               title='Shop'
@@ -51,12 +54,14 @@ const Header = () => {
           <li>
             <Link to='/cart' aria-label='Cart' title='Cart'>
               <div className='relative py-3'>
-                <ShoppingCartIcon className='h-6 w-6 text-cyan-400' />
+                <ShoppingCartIcon className='h-6 w-6 text-cyan-400' /> 
+                <span className='absolute left-6 top-0 font-bold'>{cart.length}</span>
+              
               </div>
             </Link>
           </li>
           <li>
-            <NavLink
+            <NavLink state='about'
               to='/about'
               aria-label='About Us'
               title='About Us'
@@ -150,7 +155,8 @@ const Header = () => {
                         className='font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400'
                       >
                         <div className='relative py-3'>
-                          <ShoppingCartIcon className='h-6 w-6 text-cyan-400' />
+                          <ShoppingCartIcon className='h-6 w-6 text-cyan-400' /> 
+                          <span className='aboslute bottom-5 left-5'>{cart.length}</span>
                         </div>
                       </Link>
                     </li>
